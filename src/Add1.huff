@@ -14,11 +14,11 @@
 
 #define macro MAIN() = {
 
-   0x04 calldataload
-   0x01
-   add
+   0x04 calldataload   // Load call data onto the stack
+   0x01                // Load '1' onto the stack
+   add                 // Add the 2 most recent values on the stack and load the new value onto the stack
 
-   0x00 mstore
-   0x20 0x00 return
+   0x00 mstore         // Store the new value in memory
+   0x20 0x00 return    // Return the new value from memory
 }
 

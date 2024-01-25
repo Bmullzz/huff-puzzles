@@ -9,12 +9,9 @@
 */
 
 #define macro MAIN() = takes(0) returns(0) {
-    // 0x04 calldataload
-    // 0x00 mstore
-    // 0x20 0x00 return 
 
-    callvalue
-    0x00 mstore
-    0x20 0x00 return
+    callvalue           // Load the call value onto the stack
+    0x00 mstore         // Store the call value in memory
+    0x20 0x00 return    // Return the call value
     
 }

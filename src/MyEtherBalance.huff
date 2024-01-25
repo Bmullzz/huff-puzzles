@@ -9,4 +9,9 @@
 
 #define macro MAIN() = takes(0) returns(0) {
    
+   caller               // Load the address of the sender (msg.sender) onto the stack
+   balance              // Get the balance of the sender's address
+   0x00 mstore          // Store the balance in memory
+   0x20 0x00 return     // Return the balance
+
 }

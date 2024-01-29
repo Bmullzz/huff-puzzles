@@ -9,10 +9,17 @@
  *  NOTICE: The contract should revert when an unrecognized function is called
  */
 
-#define function add1(uint256) payable returns(uint256)
-
+#define function add1(uint256) payable returns(uint256) //function signature:  a8365728
 
 #define macro MAIN() = {
+
+   0x00 calldataload 0xE0 shr  //Grab Function signature: 0xa8365728
+   
+   dup1 __FUNC_SIG(add1) eq add1 jumpi  //dupplcate 1st slot(func sig) compare to add1 function sig, jump to add1 function defined below
+
+   0x00 0x00 revert    // revert if function sigs do not match
+
+   add1:
 
    0x04 calldataload   // Load call data onto the stack
    0x01                // Load '1' onto the stack

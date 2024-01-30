@@ -13,5 +13,22 @@
 
 
 #define macro MAIN() = takes(0) returns(0) {
+                                                    // Strings are dynamic arrays in the EVM
+    0x20 0x00 mstore                                // Memory Store the offset of the dynamic array
+    0x09 0x20 mstore                                // mstore the length of the dynamic array - 'Only Huff' is 9 characters including space
+    __RIGHTPAD(0x4f6e6c792048756666) 0x40 mstore    // mstore the value at the next slot - 4f6e6c792048756666 is the bytes interpretation of 'Only Huff'
+    0x60 0x00 revert
+
+    // https://ethereum.stackexchange.com/questions/60563/why-is-the-returndata-of-a-function-returning-bytes-formatted-in-a-weird-way/60570#60570
+
+    // memory
+    
+    // offset of amount array => 1* 32 = 224 bytes (1 line ) below from start of  1st (address in this case) line
+    // 0000000000000000000000000000000000000000000000000000000000000020 - offset to the start of data (The ABI encoding)
+
+    // length of array
+    // 0000000000000000000000000000000000000000000000000000000000000009 - length
+
+    // 4f6e6c7920487566660000000000000000000000000000000000000000000000 - encoded string
     
 }

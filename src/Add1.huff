@@ -15,7 +15,7 @@
 
    0x00 calldataload 0xE0 shr  //Grab Function signature: 0xa8365728
    
-   dup1 __FUNC_SIG(add1) eq add1 jumpi  //dupplcate 1st slot(func sig) compare to add1 function sig, jump to add1 function defined below
+   dup1 __FUNC_SIG(add1) eq add1 jumpi  //duplicate 1st slot(func sig) compare to add1 function sig, jump to add1 function defined below
 
    0x00 0x00 revert    // revert if function sigs do not match
 
@@ -28,4 +28,6 @@
    0x00 mstore         // Store the new value in memory
    0x20 0x00 return    // Return the new value from memory
 }
+
+ 
 

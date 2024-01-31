@@ -12,5 +12,40 @@
 
 
 #define macro MAIN() = takes(0) returns(0) {
+    0x00 calldataload 0xE0 shr
 
+    dup1 __FUNC_SIG(sumArray) eq sumArray jumpi
+
+    0x00 0x00 revert
+
+    sumArray:
+        SUM_ARRAY()
+}
+
+#define macro SUM_ARRAY() = takes(0) returns(0) {
+    0x24 calldataload       // [length] - Get the length of the calldata (array)
+
+    // initiate a loop
+    // let i
+    0x00                    // [i, length]
+    // let 'total'
+    0x00                    // [total, i, length]
+    loop jump
+
+    loop:
+        dup2                // [i, total, i, length]
+        0x20 mul            // [0x20 * i, total, i, length]
+
+        0x44 add            // [ (0x20 * i) + 0x44, total, i, len]
+        calldataload        // [msg.data[i], total, i, length]
+        add                 // [total += msg.data[i], i, length]
+        swap1               // [i, total, length]
+        0x1 add             // [i += 1, total, length]
+        swap1               // [total, i, length]
+        dup3 dup3           // [i, length, total, i, length]
+        lt loop jumpi       // [total, i, len]
+
+    0x00 mstore
+    pop pop pop
+    0x20 0x00 return
 }
